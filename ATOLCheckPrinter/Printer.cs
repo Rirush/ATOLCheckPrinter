@@ -88,7 +88,7 @@ namespace ATOLCheckPrinter
                 {
                     MessageBox.Show(string.Format("Ошибка при закрытии смены.\nОшибка {0}: {1}", fptr.errorCode(), fptr.errorDescription()),
                         "Ошибка закрытия смены", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //return;
+                    return;
                 }
                 sessionOpen = false;
                 printerActionsGroup.Enabled = false;
@@ -103,7 +103,7 @@ namespace ATOLCheckPrinter
                 {
                     MessageBox.Show(string.Format("Ошибка при открытии смены.\nОшибка {0}: {1}", fptr.errorCode(), fptr.errorDescription()),
                         "Ошибка откртия смены", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    //return;
+                    return;
                 }
                 sessionOpen = true;
                 printerActionsGroup.Enabled = true;
@@ -134,6 +134,7 @@ namespace ATOLCheckPrinter
                     {
                         if(p.ShowDialog() != DialogResult.OK)
                         {
+                            fptr.cancelReceipt();
                             return;
                         }
                     }
