@@ -219,6 +219,10 @@ namespace ATOLCheckPrinter
                         return;
                     }
                     DatabaseConnector.Sync();
+                    if (dialog.clearQueue)
+                    {
+                        DatabaseConnector.ClearEntries();
+                    }
                     using(JcTradeIntegration integrationDialog = new JcTradeIntegration())
                     {
                         integrationDialog.ShowDialog();

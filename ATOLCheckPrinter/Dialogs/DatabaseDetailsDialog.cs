@@ -13,7 +13,7 @@ namespace ATOLCheckPrinter.Dialogs
     public partial class DatabaseDetailsDialog : Form
     {
         public string address, port, username, password;
-
+        public bool clearQueue;
         private void DatabaseDetailsDialog_Load(object sender, EventArgs e)
         {
             addressBox.Text = address;
@@ -37,6 +37,7 @@ namespace ATOLCheckPrinter.Dialogs
             port = portBox.Text;
             username = usernameBox.Text;
             password = passwordBox.Text;
+            clearQueue = clearQueueBox.Checked;
         }
     }
 }

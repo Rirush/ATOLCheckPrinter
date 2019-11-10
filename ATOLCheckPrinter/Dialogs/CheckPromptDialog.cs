@@ -27,15 +27,21 @@ namespace ATOLCheckPrinter.Dialogs
         {
             goodsNameLabel.Text = name;
             moneyLabel.Text = string.Format("{0} руб.", price);
-            methodLabel.Text = method;
-            //switch(method)
-            //{
-            //case "bank":
-
-            //    break;
-            //    case "inet":
-            //        break;
-            //}
+            switch (method)
+            {
+                case "bank":
+                    methodLabel.Text = "банк";
+                    break;
+                case "inet":
+                    methodLabel.Text = "интернет";
+                    break;
+                case "cash":
+                    methodLabel.Text = "наличные";
+                    break;
+                case "card":
+                    methodLabel.Text = "карта";
+                    break;
+            }
         }
     }
 }

@@ -38,6 +38,7 @@
             this.passwordBox = new System.Windows.Forms.TextBox();
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
+            this.clearQueueBox = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // databaseAddressLabel
@@ -108,7 +109,7 @@
             // okButton
             // 
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(195, 116);
+            this.okButton.Location = new System.Drawing.Point(191, 139);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 8;
@@ -119,12 +120,22 @@
             // cancelButton
             // 
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(114, 116);
+            this.cancelButton.Location = new System.Drawing.Point(110, 139);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 9;
             this.cancelButton.Text = "Отмена";
             this.cancelButton.UseVisualStyleBackColor = true;
+            // 
+            // clearQueueBox
+            // 
+            this.clearQueueBox.AutoSize = true;
+            this.clearQueueBox.Location = new System.Drawing.Point(96, 116);
+            this.clearQueueBox.Name = "clearQueueBox";
+            this.clearQueueBox.Size = new System.Drawing.Size(149, 17);
+            this.clearQueueBox.TabIndex = 10;
+            this.clearQueueBox.Text = "Очистить очередь чеков";
+            this.clearQueueBox.UseVisualStyleBackColor = true;
             // 
             // DatabaseDetailsDialog
             // 
@@ -132,7 +143,8 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(278, 148);
+            this.ClientSize = new System.Drawing.Size(278, 172);
+            this.Controls.Add(this.clearQueueBox);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.passwordBox);
@@ -165,5 +177,6 @@
         private System.Windows.Forms.TextBox passwordBox;
         private System.Windows.Forms.Button okButton;
         private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.CheckBox clearQueueBox;
     }
 }

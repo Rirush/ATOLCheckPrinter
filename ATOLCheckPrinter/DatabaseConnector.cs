@@ -86,5 +86,16 @@ END";
             conn.Close();
             c.Dispose();
         }
+
+        public static void ClearEntries()
+        {
+            string sql = @"DELETE FROM pending_checks";
+            MySqlConnection conn = new MySqlConnection(connString);
+            conn.Open();
+            MySqlCommand c = new MySqlCommand(sql, conn);
+            c.ExecuteNonQuery();
+            conn.Close();
+            c.Dispose();
+        }
     }
 }
