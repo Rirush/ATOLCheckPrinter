@@ -84,6 +84,7 @@ namespace ATOLCheckPrinter
                 fptr.setParam(1021, c.name);
                 fptr.setParam(1203, c.vatin);
                 fptr.operatorLogin();
+                fptr.setParam(Constants.LIBFPTR_PARAM_REPORT_ELECTRONICALLY, disablePaperReport.Checked);
                 fptr.setParam(Constants.LIBFPTR_PARAM_REPORT_TYPE, Constants.LIBFPTR_RT_CLOSE_SHIFT);
                 if (fptr.report() != 0)
                 {
@@ -100,6 +101,7 @@ namespace ATOLCheckPrinter
                 fptr.setParam(1021, c.name);
                 fptr.setParam(1203, c.vatin);
                 fptr.operatorLogin();
+                fptr.setParam(Constants.LIBFPTR_PARAM_REPORT_ELECTRONICALLY, disablePaperReport.Checked);
                 if (fptr.openShift() != 0)
                 {
                     MessageBox.Show(string.Format("Ошибка при открытии смены.\nОшибка {0}: {1}", fptr.errorCode(), fptr.errorDescription()),

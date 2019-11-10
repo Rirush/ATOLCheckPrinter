@@ -35,8 +35,9 @@
             this.changeDetailsButton = new System.Windows.Forms.Button();
             this.toggleSessionButton = new System.Windows.Forms.Button();
             this.printerActionsGroup = new System.Windows.Forms.GroupBox();
-            this.printCheckButton = new System.Windows.Forms.Button();
             this.jctradeIntegrationButton = new System.Windows.Forms.Button();
+            this.printCheckButton = new System.Windows.Forms.Button();
+            this.disablePaperReport = new System.Windows.Forms.CheckBox();
             this.printerActionsGroup.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -107,16 +108,6 @@
             this.printerActionsGroup.TabIndex = 6;
             this.printerActionsGroup.TabStop = false;
             // 
-            // printCheckButton
-            // 
-            this.printCheckButton.Location = new System.Drawing.Point(12, 19);
-            this.printCheckButton.Name = "printCheckButton";
-            this.printCheckButton.Size = new System.Drawing.Size(170, 29);
-            this.printCheckButton.TabIndex = 0;
-            this.printCheckButton.Text = "Сформировать чек продажи";
-            this.printCheckButton.UseVisualStyleBackColor = true;
-            this.printCheckButton.Click += new System.EventHandler(this.printCheckButton_Click);
-            // 
             // jctradeIntegrationButton
             // 
             this.jctradeIntegrationButton.Location = new System.Drawing.Point(12, 54);
@@ -127,11 +118,34 @@
             this.jctradeIntegrationButton.UseVisualStyleBackColor = true;
             this.jctradeIntegrationButton.Click += new System.EventHandler(this.jctradeIntegrationButton_Click);
             // 
+            // printCheckButton
+            // 
+            this.printCheckButton.Location = new System.Drawing.Point(12, 19);
+            this.printCheckButton.Name = "printCheckButton";
+            this.printCheckButton.Size = new System.Drawing.Size(170, 29);
+            this.printCheckButton.TabIndex = 0;
+            this.printCheckButton.Text = "Сформировать чек продажи";
+            this.printCheckButton.UseVisualStyleBackColor = true;
+            this.printCheckButton.Click += new System.EventHandler(this.printCheckButton_Click);
+            // 
+            // disablePaperReport
+            // 
+            this.disablePaperReport.AutoSize = true;
+            this.disablePaperReport.Checked = true;
+            this.disablePaperReport.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.disablePaperReport.Location = new System.Drawing.Point(232, 39);
+            this.disablePaperReport.Name = "disablePaperReport";
+            this.disablePaperReport.Size = new System.Drawing.Size(198, 17);
+            this.disablePaperReport.TabIndex = 7;
+            this.disablePaperReport.Text = "Тихое открытие/закрытие смены";
+            this.disablePaperReport.UseVisualStyleBackColor = true;
+            // 
             // Printer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(498, 366);
+            this.Controls.Add(this.disablePaperReport);
             this.Controls.Add(this.printerActionsGroup);
             this.Controls.Add(this.toggleSessionButton);
             this.Controls.Add(this.changeDetailsButton);
@@ -162,5 +176,6 @@
         private System.Windows.Forms.GroupBox printerActionsGroup;
         private System.Windows.Forms.Button printCheckButton;
         private System.Windows.Forms.Button jctradeIntegrationButton;
+        private System.Windows.Forms.CheckBox disablePaperReport;
     }
 }
