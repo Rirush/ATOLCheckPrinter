@@ -36,6 +36,7 @@
             this.toggleSessionButton = new System.Windows.Forms.Button();
             this.printerActionsGroup = new System.Windows.Forms.GroupBox();
             this.printCheckButton = new System.Windows.Forms.Button();
+            this.jctradeIntegrationButton = new System.Windows.Forms.Button();
             this.printerActionsGroup.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -97,6 +98,7 @@
             // 
             // printerActionsGroup
             // 
+            this.printerActionsGroup.Controls.Add(this.jctradeIntegrationButton);
             this.printerActionsGroup.Controls.Add(this.printCheckButton);
             this.printerActionsGroup.Enabled = false;
             this.printerActionsGroup.Location = new System.Drawing.Point(15, 55);
@@ -114,6 +116,16 @@
             this.printCheckButton.Text = "Сформировать чек продажи";
             this.printCheckButton.UseVisualStyleBackColor = true;
             this.printCheckButton.Click += new System.EventHandler(this.printCheckButton_Click);
+            // 
+            // jctradeIntegrationButton
+            // 
+            this.jctradeIntegrationButton.Location = new System.Drawing.Point(12, 54);
+            this.jctradeIntegrationButton.Name = "jctradeIntegrationButton";
+            this.jctradeIntegrationButton.Size = new System.Drawing.Size(170, 29);
+            this.jctradeIntegrationButton.TabIndex = 1;
+            this.jctradeIntegrationButton.Text = "Интеграция с JcTrade Pro";
+            this.jctradeIntegrationButton.UseVisualStyleBackColor = true;
+            this.jctradeIntegrationButton.Click += new System.EventHandler(this.jctradeIntegrationButton_Click);
             // 
             // Printer
             // 
@@ -149,5 +161,6 @@
         private System.Windows.Forms.Button toggleSessionButton;
         private System.Windows.Forms.GroupBox printerActionsGroup;
         private System.Windows.Forms.Button printCheckButton;
+        private System.Windows.Forms.Button jctradeIntegrationButton;
     }
 }

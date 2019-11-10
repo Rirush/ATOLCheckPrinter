@@ -8,10 +8,11 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>ATOLCheckPrinter</RootNamespace>
     <AssemblyName>ATOLCheckPrinter</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
     <IsWebBootstrapper>false</IsWebBootstrapper>
+    <TargetFrameworkProfile />
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
@@ -73,7 +74,7 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <SignManifests>true</SignManifests>
+    <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
     <ManifestCertificateThumbprint>84F0EB8DCF85ADA1588F8AF48EF5333919069986</ManifestCertificateThumbprint>
@@ -82,7 +83,7 @@
     <ManifestKeyFile>ATOLCheckPrinter_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -94,11 +95,30 @@
     <Reference Include="Atol.Drivers10.Fptr">
       <HintPath>..\Atol.Drivers10.Fptr.dll</HintPath>
     </Reference>
+    <Reference Include="BouncyCastle.Crypto, Version=1.8.3.0, Culture=neutral, PublicKeyToken=0e99375e54769942">
+      <HintPath>..\packages\BouncyCastle.1.8.3.1\lib\BouncyCastle.Crypto.dll</HintPath>
+    </Reference>
+    <Reference Include="Google.Protobuf, Version=3.6.1.0, Culture=neutral, PublicKeyToken=a7d26565bac4d604, processorArchitecture=MSIL">
+      <HintPath>..\packages\Google.Protobuf.3.6.1\lib\net45\Google.Protobuf.dll</HintPath>
+    </Reference>
+    <Reference Include="MySql.Data, Version=6.7.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <HintPath>..\packages\MySql.Data.6.7.9\lib\net45\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Renci.SshNet, Version=2016.1.0.0, Culture=neutral, PublicKeyToken=1cee9f8bde3db106, processorArchitecture=MSIL">
+      <HintPath>..\packages\SSH.NET.2016.1.0\lib\net40\Renci.SshNet.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -110,22 +130,41 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FormCheck.cs">
+    <Compile Include="DatabaseConnector.cs" />
+    <Compile Include="Dialogs\CheckPromptDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormCheck.Designer.cs">
+    <Compile Include="Dialogs\CheckPromptDialog.Designer.cs">
+      <DependentUpon>CheckPromptDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\DatabaseDetailsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\DatabaseDetailsDialog.Designer.cs">
+      <DependentUpon>DatabaseDetailsDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\FormCheck.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\FormCheck.Designer.cs">
       <DependentUpon>FormCheck.cs</DependentUpon>
     </Compile>
-    <Compile Include="PaymentMethod.cs">
+    <Compile Include="Dialogs\JcTradeIntegration.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PaymentMethod.Designer.cs">
+    <Compile Include="Dialogs\JcTradeIntegration.Designer.cs">
+      <DependentUpon>JcTradeIntegration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\PaymentMethod.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Dialogs\PaymentMethod.Designer.cs">
       <DependentUpon>PaymentMethod.cs</DependentUpon>
     </Compile>
-    <Compile Include="PositionAdd.cs">
+    <Compile Include="Dialogs\PositionAdd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="PositionAdd.Designer.cs">
+    <Compile Include="Dialogs\PositionAdd.Designer.cs">
       <DependentUpon>PositionAdd.cs</DependentUpon>
     </Compile>
     <Compile Include="Printer.cs">
@@ -134,10 +173,10 @@
     <Compile Include="Printer.Designer.cs">
       <DependentUpon>Printer.cs</DependentUpon>
     </Compile>
-    <Compile Include="RequestCashierDetails.cs">
+    <Compile Include="Dialogs\RequestCashierDetails.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="RequestCashierDetails.Designer.cs">
+    <Compile Include="Dialogs\RequestCashierDetails.Designer.cs">
       <DependentUpon>RequestCashierDetails.cs</DependentUpon>
     </Compile>
     <Compile Include="StartupForm.cs">
@@ -148,13 +187,22 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FormCheck.resx">
+    <EmbeddedResource Include="Dialogs\CheckPromptDialog.resx">
+      <DependentUpon>CheckPromptDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\DatabaseDetailsDialog.resx">
+      <DependentUpon>DatabaseDetailsDialog.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\FormCheck.resx">
       <DependentUpon>FormCheck.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PaymentMethod.resx">
+    <EmbeddedResource Include="Dialogs\JcTradeIntegration.resx">
+      <DependentUpon>JcTradeIntegration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Dialogs\PaymentMethod.resx">
       <DependentUpon>PaymentMethod.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="PositionAdd.resx">
+    <EmbeddedResource Include="Dialogs\PositionAdd.resx">
       <DependentUpon>PositionAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Printer.resx">
@@ -168,14 +216,14 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="RequestCashierDetails.resx">
+    <EmbeddedResource Include="Dialogs\RequestCashierDetails.resx">
       <DependentUpon>RequestCashierDetails.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="StartupForm.resx">
       <DependentUpon>StartupForm.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="ATOLCheckPrinter_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">

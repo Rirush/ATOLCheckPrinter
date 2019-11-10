@@ -1,4 +1,5 @@
 ﻿using Atol.Drivers10.Fptr;
+using ATOLCheckPrinter.Dialogs;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -178,6 +179,51 @@ namespace ATOLCheckPrinter
                 }
             }
         }
+
+        private void jctradeIntegrationButton_Click(object sender, EventArgs e)
+        {
+            DatabaseDetails db;
+            if (File.Exists("database.json"))
+            {
+                string data = File.ReadAllText("database.json");
+                db = JsonConvert.DeserializeObject<DatabaseDetails>(data);
+            }
+            else
+            {
+                db = new DatabaseDetails
+                {
+                    address = "localhost",
+                    port = "3306",
+                    username = "root"
+                };
+            }
+            using(DatabaseDetailsDialog dialog = new DatabaseDetailsDialog(db.address, db.port, db.username, db.password))
+            {
+                if(dialog.ShowDialog() == DialogResult.OK)
+                {
+                    db.address = dialog.address;
+                    db.port = dialog.port;
+                    db.username = dialog.username;
+                    db.password = dialog.password;
+                    string data = JsonConvert.SerializeObject(db);
+                    File.WriteAllText("database.json", data);
+                    try
+                    {
+                        DatabaseConnector.Connect(db.address, db.port, db.username, db.password);
+                    }
+                    catch
+                    {
+                        MessageBox.Show("Невозможно подключиться к базе данных. Проверьте правильность введения данных", "Ошибка базы данных", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        return;
+                    }
+                    DatabaseConnector.Sync();
+                    using(JcTradeIntegration integrationDialog = new JcTradeIntegration())
+                    {
+                        integrationDialog.ShowDialog();
+                    }
+                }
+            }
+        }
     }
 
     public class Cashier
@@ -189,5 +235,10 @@ namespace ATOLCheckPrinter
         }
 
         public string name, vatin;
+    }
+
+    public class DatabaseDetails
+    {
+        public string address, port, username, password;
     }
 }
