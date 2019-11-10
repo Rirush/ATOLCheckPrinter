@@ -31,7 +31,16 @@ namespace ATOLCheckPrinter
 
         private void StartupForm_Load(object sender, EventArgs e)
         {
-            fptr = new Fptr();
+            try
+            {
+                fptr = new Fptr();
+            }
+            catch
+            {
+                MessageBox.Show("Невозможно найти драйвер ККТ. Убедитесь что драйвер установлен", "Ошибка драйвера ККТ", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+                return;
+            }
             if (File.Exists("atol.json"))
             {
                 string settings = File.ReadAllText("atol.json");
@@ -41,9 +50,12 @@ namespace ATOLCheckPrinter
 
         private void StartupForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            string settings = fptr.getSettings();
-            File.WriteAllText("atol.json", settings);
-            fptr.close();
+            if (fptr != null)
+            {
+                string settings = fptr.getSettings();
+                File.WriteAllText("atol.json", settings);
+                fptr.close();
+            }
         }
 
         private void ConnectButton_Click(object sender, EventArgs e)

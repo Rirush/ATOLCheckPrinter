@@ -27,7 +27,7 @@ namespace ATOLCheckPrinter
 
         private void Printer_Load(object sender, EventArgs e)
         {
-            if(File.Exists("cashier.json"))
+            if (File.Exists("cashier.json"))
             {
                 string data = File.ReadAllText("cashier.json");
                 c = JsonConvert.DeserializeObject<Cashier>(data);
@@ -54,7 +54,7 @@ namespace ATOLCheckPrinter
 
         private void Printer_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(sessionOpen)
+            if (sessionOpen)
             {
                 MessageBox.Show("Перед закрытием принтера, необходимо закрыть смену", "Ошибка выхода", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 e.Cancel = true;
@@ -65,7 +65,7 @@ namespace ATOLCheckPrinter
 
         private void changeDetailsButton_Click(object sender, EventArgs e)
         {
-            using(RequestCashierDetails cashierDetails = new RequestCashierDetails(c))
+            using (RequestCashierDetails cashierDetails = new RequestCashierDetails(c))
             {
                 if (cashierDetails.ShowDialog() == DialogResult.OK)
                 {
@@ -78,13 +78,13 @@ namespace ATOLCheckPrinter
 
         private void toggleSessionButton_Click(object sender, EventArgs e)
         {
-            if(sessionOpen)
+            if (sessionOpen)
             {
                 fptr.setParam(1021, c.name);
                 fptr.setParam(1203, c.vatin);
                 fptr.operatorLogin();
                 fptr.setParam(Constants.LIBFPTR_PARAM_REPORT_TYPE, Constants.LIBFPTR_RT_CLOSE_SHIFT);
-                if(fptr.report() != 0)
+                if (fptr.report() != 0)
                 {
                     MessageBox.Show(string.Format("Ошибка при закрытии смены.\nОшибка {0}: {1}", fptr.errorCode(), fptr.errorDescription()),
                         "Ошибка закрытия смены", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -99,7 +99,7 @@ namespace ATOLCheckPrinter
                 fptr.setParam(1021, c.name);
                 fptr.setParam(1203, c.vatin);
                 fptr.operatorLogin();
-                if(fptr.openShift() != 0)
+                if (fptr.openShift() != 0)
                 {
                     MessageBox.Show(string.Format("Ошибка при открытии смены.\nОшибка {0}: {1}", fptr.errorCode(), fptr.errorDescription()),
                         "Ошибка откртия смены", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -117,10 +117,10 @@ namespace ATOLCheckPrinter
             fptr.setParam(1021, c.name);
             fptr.setParam(1203, c.vatin);
             fptr.operatorLogin();
-            
+
             fptr.setParam(Constants.LIBFPTR_PARAM_RECEIPT_TYPE, Constants.LIBFPTR_RT_SELL);
             fptr.setParam(Constants.LIBFPTR_PARAM_USE_VAT18, true);
-            if(fptr.openReceipt() != 0)
+            if (fptr.openReceipt() != 0)
             {
                 MessageBox.Show(string.Format("Ошибка при открытии чека.\nОшибка {0}: {1}", fptr.errorCode(), fptr.errorDescription()),
                         "Ошибка откртия чека", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -128,11 +128,11 @@ namespace ATOLCheckPrinter
             }
             using (FormCheck c = new FormCheck())
             {
-                if(c.ShowDialog() == DialogResult.OK)
+                if (c.ShowDialog() == DialogResult.OK)
                 {
-                    using(PaymentMethod p = new PaymentMethod(c.total))
+                    using (PaymentMethod p = new PaymentMethod(c.total))
                     {
-                        if(p.ShowDialog() != DialogResult.OK)
+                        if (p.ShowDialog() != DialogResult.OK)
                         {
                             fptr.cancelReceipt();
                             return;
@@ -140,31 +140,31 @@ namespace ATOLCheckPrinter
                     }
                     double change = fptr.getParamDouble(Constants.LIBFPTR_PARAM_CHANGE);
                     MessageBox.Show(string.Format("Сдача: {0}", change));
-                    if(fptr.closeReceipt() != 0)
+                    if (fptr.closeReceipt() != 0)
                     {
                         MessageBox.Show(string.Format("Ошибка закрытия чека.\nОшибка {0}: {1}", fptr.errorCode(), fptr.errorDescription()), "Ошибка закрытия чека", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    } 
+                    }
                     else
                     {
-                        while(fptr.checkDocumentClosed() < 0)
+                        while (fptr.checkDocumentClosed() < 0)
                         {
                             DialogResult r = MessageBox.Show(string.Format("Невозможно получить состояние чека. Необходимо устранить неполадку и проверить состояние чека снова.\nОшибка {0}: {1}", fptr.errorCode(), fptr.errorDescription()),
                                 "Ошибка проверки статуса чека", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
-                            if(r == DialogResult.Cancel)
+                            if (r == DialogResult.Cancel)
                             {
                                 return;
                             }
                         }
 
-                        if(!fptr.getParamBool(Constants.LIBFPTR_PARAM_DOCUMENT_CLOSED))
+                        if (!fptr.getParamBool(Constants.LIBFPTR_PARAM_DOCUMENT_CLOSED))
                         {
                             MessageBox.Show("Чек не закрылся. Необходимо повторно сформировать чек и повторить попытку", "Ошибка закрытия", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
 
-                        if(!fptr.getParamBool(Constants.LIBFPTR_PARAM_DOCUMENT_PRINTED))
+                        if (!fptr.getParamBool(Constants.LIBFPTR_PARAM_DOCUMENT_PRINTED))
                         {
-                            while(fptr.continuePrint() < 0)
+                            while (fptr.continuePrint() < 0)
                             {
                                 DialogResult r = MessageBox.Show(string.Format("Ошибка печати чека. Необходимо устранить неполадку и повторить печать чека снова.\nОшибка {0}: {1}", fptr.errorCode(), fptr.errorDescription()),
                                 "Ошибка печати чека", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
